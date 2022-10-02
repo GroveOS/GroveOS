@@ -1,4 +1,6 @@
-# One liner install
-` git clone https://github.com/GroveOS/grove.git my-project && cd my-project && sh ./grove.sh init && subl . `
-
+# Install
+```bash
+cd my-project
+curl -S https://install.groveos.net | bash
+```
 More docs coming.
