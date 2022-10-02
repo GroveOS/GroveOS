@@ -1,5 +1,6 @@
 if [[ ! $1 ]]; then
-	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && cp couch/config.example.php couch/config.php
+	git clone https://github.com/GroveOS/grove && mv grove/grove.sh grove/config.php ./ && rm -rf GroveOS
+	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && cp config.php couch/config.php
 	mkdir assets && touch assets/main.css assets/main.js
 	mkdir embed && mkdir embed/forms embed/partials embed/template embed/vars
 	touch embed/vars/global.html
@@ -48,6 +49,9 @@ if [[ ! $1 ]]; then
 	for item in config-form config-list editables routes; do
 		mkdir embed/template/$item
 	done
+
+	# Install index template
+	bash ./grove.sh template index
 fi
 
 
