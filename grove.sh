@@ -1,4 +1,4 @@
-if [ $1 == 'init' ]; then
+if [[ ! $1 ]]; then
 	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && cp couch/config.example.php couch/config.php
 	mkdir assets && touch assets/main.css assets/main.js
 	mkdir embed && mkdir embed/forms embed/partials embed/template embed/vars
@@ -51,8 +51,8 @@ if [ $1 == 'init' ]; then
 fi
 
 
-if [ $1 == 'template' ]; then
-	if [ ! -f $2.php ]; then
+if [[ $1 == 'template' ]]; then
+	if [[ ! -f $2.php ]]; then
 		title="$(tr '[:lower:]' '[:upper:]' <<< ${2:0:1})${2:1}"
 		echo "<?php require_once('couch/cms.php');?>
 
@@ -77,8 +77,8 @@ fi
 
 
 
-if [ $1 == 'remove' ]; then
-	if [ $2 == 'template' ]; then
+if [[ $1 == 'remove' ]]; then
+	if [[ $2 == 'template' ]]; then
 		rm $3.php
 		for item in config-form config-list editables routes; do
 			rm embed/template/$item/$3.html
