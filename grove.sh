@@ -2,7 +2,14 @@ if [ $1 == 'init' ]; then
 	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && cp couch/config.example.php couch/config.php
 	mkdir assets && touch assets/main.css assets/main.js
 	mkdir embed && mkdir embed/forms embed/partials embed/template embed/vars
-	touch embed/vars/globals.html
+	touch embed/vars/global.html
+
+	# Grove vars
+	echo "<cms:capture into='grove' is_json='1'>
+	{
+		\"template\" : \"<cms:php>echo(basename('<cms:show k_template_name />', '.php'));</cms:php>\"
+	}
+</cms:capture>" >> embed/vars/grove.html
 
 	# Partials
 	echo "<cms:block 'meta'>
@@ -50,10 +57,11 @@ if [ $1 == 'template' ]; then
 		echo "<?php require_once('couch/cms.php');?>
 
 <cms:template title='$title'>
-	<cms:embed \"template/editables/<cms:show k_template_name />.html\" />
-	<cms:embed \"template/config-form/<cms:show k_template_name />.html\" />
-	<cms:embed \"template/config-list/<cms:show k_template_name />.html\" />
-	<cms:embed \"template/routes/<cms:show k_template_name />.html\" />
+	<cms:embed \"vars/grove.html\" />
+	<cms:embed \"template/editables/<cms:show grove.template />.html\" />
+	<cms:embed \"template/config-form/<cms:show grove.template />.html\" />
+	<cms:embed \"template/config-list/<cms:show grove.template />.html\" />
+	<cms:embed \"template/routes/<cms:show grove.template />.html\" />
 </cms:template>
 
 <cms:smart_embed />
