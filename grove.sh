@@ -1,5 +1,5 @@
 if [[ ! $1 ]]; then
-	git clone https://github.com/GroveOS/grove GroveOS && mv GroveOS/grove.sh GroveOS/config.php ./ && rm -rf GroveOS
+	git clone https://github.com/GroveOS/GroveOS && mv GroveOS/grove.sh GroveOS/config.php ./ && rm -rf GroveOS
 	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && mv config.php couch/config.php
 	mkdir assets && touch assets/main.css assets/main.js
 	mkdir embed && mkdir embed/forms embed/partials embed/template embed/vars
