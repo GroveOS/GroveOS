@@ -2,7 +2,25 @@ if [ $1 == 'init' ]; then
 	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && cp couch/config.example.php couch/config.php
 	mkdir assets && touch assets/main.css assets/main.js
 	mkdir embed && mkdir embed/forms embed/partials embed/template embed/vars
-	touch vars/globals.html
+	touch embed/vars/globals.html
+
+	echo "<html>
+	
+	<cms:block 'global-vars'><cms:embed 'vars/global.html' /></cms:block>
+	<cms:block 'page-vars' />
+	
+	<cms:block 'head'><cms:embed 'partials/head.html' /></cms:block>
+
+	<body>
+		<cms:block 'header'><cms:embed 'partials/header.html' /></cms:block>
+		<cms:block 'content' />
+		<cms:block 'footer'><cms:embed 'partials/footer.html' /></cms:block>
+	</body>
+
+</html>" >> embed/forms/page.html
+
+	echo "" >> embed/forms/api.html
+
 	for item in config-form config-list editables routes; do
 		mkdir embed/template/$item
 	done
