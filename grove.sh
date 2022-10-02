@@ -1,5 +1,5 @@
 if [[ ! $1 ]]; then
-	git clone https://github.com/GroveOS/grove && mv grove/grove.sh grove/config.php ./ && rm -rf GroveOS
+	git clone https://github.com/GroveOS/grove GroveOS && mv GroveOS/grove.sh GroveOS/config.php ./ && rm -rf GroveOS
 	git clone https://github.com/CouchCMS/CouchCMS && mv CouchCMS/couch ./ && rm -rf CouchCMS && mv config.php couch/config.php
 	mkdir assets && touch assets/main.css assets/main.js
 	mkdir embed && mkdir embed/forms embed/partials embed/template embed/vars
@@ -51,11 +51,11 @@ if [[ ! $1 ]]; then
 	done
 
 	# Install index template
-	bash ./grove.sh template index
+	bash ./grove.sh create index
 fi
 
 
-if [[ $1 == 'template' ]]; then
+if [[ $1 == 'create' ]]; then
 	if [[ ! -f $2.php ]]; then
 		title="$(tr '[:lower:]' '[:upper:]' <<< ${2:0:1})${2:1}"
 		echo "<?php require_once('couch/cms.php');?>
@@ -82,10 +82,8 @@ fi
 
 
 if [[ $1 == 'remove' ]]; then
-	if [[ $2 == 'template' ]]; then
-		rm $3.php
-		for item in config-form config-list editables routes; do
-			rm embed/template/$item/$3.html
-		done
-	fi
+	rm $2.php
+	for item in config-form config-list editables routes; do
+		rm embed/template/$item/$2.html
+	done
 fi
